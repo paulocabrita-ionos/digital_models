@@ -1,0 +1,206 @@
+{
+    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "title": "My Cobot - Robot Arm",
+    "@type": "tm:ThingModel",
+    "description": "A Digital Twin model that represents a robot arm that can work in a factory.",
+    "securityDefinitions": {
+      "nosec_sc": {
+        "scheme": "nosec"
+      }
+    },
+    "security": "nosec_sc",
+    "properties": {
+      "joint1": {
+        "title": "joint1",
+        "observable": true,
+        "readOnly": false,
+        "description": "Position of the joint 1.",
+        "type": "number",
+        "forms": []
+      },
+      "joint2": {
+        "title": "joint2",
+        "observable": true,
+        "readOnly": false,
+        "description": "Position of the joint 2.",
+        "type": "number",
+        "forms": []
+      },
+      "joint3": {
+        "title": "joint3",
+        "observable": true,
+        "readOnly": false,
+        "description": "Position of the joint 3.",
+        "type": "number",
+        "forms": []
+      },
+      "joint4": {
+        "title": "joint4",
+        "observable": true,
+        "readOnly": false,
+        "description": "Position of the joint 4.",
+        "type": "number",
+        "forms": []
+      },
+      "joint5": {
+        "title": "joint5",
+        "observable": true,
+        "readOnly": false,
+        "description": "Position of the joint 5.",
+        "type": "number",
+        "forms": []
+      },
+      "joint6": {
+        "title": "joint6",
+        "observable": true,
+        "readOnly": false,
+        "description": "Position of the joint 6.",
+        "type": "number",
+        "forms": []
+      },
+      "gripper": {
+        "title": "gripper",
+        "observable": true,
+        "readOnly": false,
+        "description": "Gripper state.",
+        "type": "boolean",
+        "forms": []
+      },
+      "power": {
+        "title": "power",
+        "observable": true,
+        "readOnly": false,
+        "description": "Power state.",
+        "type": "boolean",
+        "forms": []
+      },
+      "longitude": {
+        "title": "Longitude",
+        "description": "Longitude of robot location",
+        "type": "number",
+        "default": 0,
+        "observable": true,
+        "readOnly": false,
+        "writeOnly": false
+      },
+      "latitude": {
+        "title": "Latitude",
+        "description": "Latitude of robot location",
+        "type": "number",
+        "default": 0,
+        "observable": true,
+        "readOnly": false,
+        "writeOnly": false
+      },
+      "local": {
+        "title": "local",
+        "observable": true,
+        "readOnly": true,
+        "description": "Localization of the robot",
+        "type": "string",
+        "forms": []
+      },
+      "timestamp": {
+        "title": "Timestamp",
+        "description": "Timestamp of the robot state",
+        "type": "number",
+        "default": 0,
+        "observable": true,
+        "readOnly": true,
+        "writeOnly": false
+      }
+    },
+    "actions": {
+      "move-all-joints": {
+	    "title": "Move all joints",
+		"description": "Move all joints with the angle's data for each of them.",
+		"joints": {
+		  "@type": "@list",
+		  "title": "Position of all joints"
+      },
+      "move-joint": {
+	    "title": "Move joint",
+		"description": "Move joint1 to a specific angle.",
+		"joint": {
+		  "@type": "integer:Joint",
+		  "title": "Joint to change",
+		  "type": "number"
+		},
+		"angle": {
+		  "@type": "nuber:Angle",
+		  "title": "Angle for the joint",
+		  "type": "number"
+		}
+      },
+      "change-gripper": {
+	    "title": "Change gripper",
+		"description": "Open or close the gripper of the robot arm.",
+		"input": {
+		  "@type": "boolean:Operation",
+		  "title": "Status of gripper",
+		  "type": "boolean"
+		}
+      },
+      "operation": {
+	    "title": "Operation of the robot arm",
+		"description": "Start or stop the robot arm.",
+		"input": {
+		  "@type": "boolean:Operation",
+		  "title": "Status of the robot",
+		  "type": "boolean"
+		}
+      },
+      "maintenance-mode": {
+	    "title": "Robot maintenance",
+		"description": "Send maintenance codes that the robot will execute.",
+		"input": {
+		  "@type": "integer:Maintenance",
+		  "title": "Maintenance code",
+		  "type": "integer"
+		}
+      }
+    },
+    "events": {
+      "out-of-course": {
+        "title": "Out of course event",
+        "desscription": "Emitted when the robot does not move the way is suppose to be.",
+        "data": {
+          "title": "Out of course payload",
+          "type": "object",
+          "properties": {
+            "joint": {
+              "type": "integer"
+            },
+            "position": {
+              "type": "integer"
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      },
+	  "maintenance": {
+	    "title": "Maintenance event",
+        "desscription": "Emitted when the robot has a maintenance issue.",
+        "data": {
+          "title": "Maintenance payload",
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "integer"
+            },
+            "description": {
+              "type": "string"
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+	  }
+    }
+  }
+} 
