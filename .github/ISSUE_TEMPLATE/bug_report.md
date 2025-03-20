@@ -1,7 +1,7 @@
 ---
-name: Bug Report
-about: Report a bug in the SECA project
-labels: bug
+name: "Bug Report"
+about: "Report a bug in the SECA project"
+labels: ["bug"]
 ---
 
 ### Description
